@@ -1,0 +1,22 @@
+{{template "section_start.html" .Name}}
+<code class="c">{{.ReturnType}}{{.Prototype}}</code><br>
+{{.Comment.Title | markdown}}
+{{if .HasArgDocs}}
+<table class="codetable">
+  {{range .Args}}
+  <tr>
+    <td align="right" style="vertical-align: top;" class="codecell">
+      <code class="c"><span class="hljs-keyword">{{.CType}}</span></code>
+    </td>
+    <td class="codecell">
+      <code class="c">{{.Name}}</code><br>
+      {{.Comment | markdown}}
+    </td>
+  </tr>
+  {{end}}
+</table>
+{{end}}
+{{if .Comment.Body}}
+{{.Comment.Body | markdown}}
+{{end}}
+{{template "section_end.html"}}

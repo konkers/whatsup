@@ -1,0 +1,20 @@
+{{if isAnonTypedef .}}
+<tr>
+  <td align="right" style="vertical-align: top;" class="codecell">
+    <code class="c"><span class="hljs-keyword">typedef </span></code>
+  </td>
+  <td class="codecell">
+  </td>
+</tr>
+{{end}}
+</tr>
+  <td align="right" style="vertical-align: top;" class="codecell">
+    <code class="c"><span class="hljs-keyword">{{.TypeString}} </span></code>
+  </td>
+  <td class="codecell">
+    <code class="c"><span class="hljs-title">{{.Name}}</span></code>
+    {{if isTypedef .}}<code> // {{.UnderlyingType}}</code>{{end}}
+    <br>
+    {{.Comment.Title | markdown}}
+  </td>
+</tr>
