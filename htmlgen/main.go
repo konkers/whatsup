@@ -109,24 +109,58 @@ func transmogrifyFunction(in *model.Function) *Function {
 	}
 }
 
-func transmogrifyStruct(in *model.Struct) *Struct {
+func transmogrifyFields(in []*model.Field) []*Field {
 	var fields []*Field
-	for _, f := range in.Fields {
-
+	for _, f := range in {
 		fields = append(fields, &Field{
 			Name:    f.Name,
 			CType:   template.HTML(decorateType(f.CType)),
 			Comment: *model.ParseComment(f.Comment),
 		})
 	}
+	return fields
+}
 
+func transmogrifyStruct(in *model.Struct) *Struct {
 	return &Struct{
 		TypeBase: TypeBase{
 			Name:       in.Name,
 			TypeString: "struct",
 			Comment:    *model.ParseComment(in.Comment),
 		},
-		Fields: fields,
+		Fields: transmogrifyFields(in.Fields),
+	}
+}
+
+func transmogrifyUnion(in *model.Union) *Union {
+	return &Union{
+		TypeBase: TypeBase{
+			Name:       in.Name,
+			TypeString: "union",
+			Comment:    *model.ParseComment(in.Comment),
+		},
+		Fields: transmogrifyFields(in.Fields),
+	}
+}
+
+func transmogrifyEnum(in *model.Enum) *Enum {
+	var constants []*EnumConstant
+	for _, c := range in.Constants {
+
+		constants = append(constants, &EnumConstant{
+			Name:    c.Name,
+			Value:   c.Value,
+			Comment: *model.ParseComment(c.Comment),
+		})
+	}
+
+	return &Enum{
+		TypeBase: TypeBase{
+			Name:       in.Name,
+			TypeString: "enum",
+			Comment:    *model.ParseComment(in.Comment),
+		},
+		Constants: constants,
 	}
 }
 
@@ -190,6 +224,18 @@ func main() {
 			structType := transmogrifyStruct(s)
 			data.Types = append(data.Types, structType)
 			types[s.Usr] = structType
+		}
+
+		for _, u := range module.Unions {
+			unionType := transmogrifyUnion(u)
+			data.Types = append(data.Types, unionType)
+			types[u.Usr] = unionType
+		}
+
+		for _, e := range module.Enums {
+			enumType := transmogrifyEnum(e)
+			data.Types = append(data.Types, enumType)
+			types[e.Usr] = enumType
 		}
 
 		for _, typedef := range module.Typedefs {

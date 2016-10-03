@@ -28,6 +28,18 @@ type TypeBase struct {
 	Comment     model.Comment
 }
 
+type EnumConstant struct {
+	Name    string
+	Value   int64
+	Comment model.Comment
+}
+
+type Enum struct {
+	TypeBase
+
+	Constants []*EnumConstant
+}
+
 type Field struct {
 	Name    string
 	CType   template.HTML
@@ -35,6 +47,12 @@ type Field struct {
 }
 
 type Struct struct {
+	TypeBase
+
+	Fields []*Field
+}
+
+type Union struct {
 	TypeBase
 
 	Fields []*Field

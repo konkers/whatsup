@@ -43,12 +43,6 @@
         {{.Module.Documentation | markdown}}
         {{template "section_end.html"}}
 
-        {{template "section_start.html" "Constants"}}
-        {{template "section_end.html"}}
-
-        {{template "section_start.html" "Variables"}}
-        {{template "section_end.html"}}
-
         {{template "section_start.html" "Types"}}
         <table class="codetable">
           {{range .Types}}
@@ -64,6 +58,13 @@
           {{end}}
         </table>
         {{template "section_end.html"}}
+
+        {{template "section_start.html" "Constants"}}
+        {{template "section_end.html"}}
+
+        {{template "section_start.html" "Variables"}}
+        {{template "section_end.html"}}
+
 
         {{range .Functions}}
         {{template "function_detail.html" .}}
