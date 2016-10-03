@@ -1,0 +1,34 @@
+body {
+  background: #fafafa;
+}
+
+hr {
+  margin-top: 0;
+}
+
+code {
+  white-space: pre;
+}
+
+.param_ref {
+  background-color: #eeeeee;
+  color: #1976D2;
+  font-weight: bold;
+  border-radius: 10px;
+  padding-top: 1px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 3px;
+}
+
+.codetable {
+  margin-left: 2em;
+  /*border: 1px solid black; */
+  /*background: #e8e8e8;
+  border-spacing: 0;
+  border-collapse: collapse; */
+}
+
+.codecell {
+  /* border: 1px solid black; */
+}
